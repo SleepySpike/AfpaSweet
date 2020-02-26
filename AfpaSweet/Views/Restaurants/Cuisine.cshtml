@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AfpaSweet.Restaurant>
+
+@{
+    ViewBag.Title = "Cuisine";
+    List<AfpaSweet.Restaurant> typeRestaurants = ViewBag.typeRestaurants;
+}
+
+<h2>Cuisine</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Nom
+        </th>
+        <th>
+            Photo
+        </th>
+
+        <th>
+            Description
+        </th>
+
+        <th></th>
+
+    </tr>
+
+    @foreach (var item in typeRestaurants)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @item.Photos.FirstOrDefault()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Menu", "Details", new { id = item.IdRestaurant })
+            </td>
+        </tr>
+    }
+
+</table>
+

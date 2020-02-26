@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Restaurant>
+
+@{
+    ViewBag.Title = "Index";
+    List<AfpaSweet.Restaurant> restaurants = ViewBag.restaurants;
+    List<AfpaSweet.TypeCuisine> typeCuisine = ViewBag.typeCuisines;
+}
+
+<h2>Index</h2>
+
+<article class="card">
+    <div class="card-body p-5">
+
+
+
+        <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link " data-toggle="pill" href="#tabRestaurants">Restaurants</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " data-toggle="pill" href="#tabTypeCuisines">Types de cuisines</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade show active" role="tabpanel" id="tabRestaurants">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Photo
+                        </th>
+
+                        <th>
+                            Description
+                        </th>
+
+                        <th></th>
+
+                    </tr>
+
+                    @foreach (var item in restaurants)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nom)
+                            </td>
+                            <td>
+                                @item.Photos.FirstOrDefault()
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Menu", "Details", new { id = item.IdRestaurant })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div class="tab-pane fade" role="tabpanel" id="tabTypeCuisines">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Nom
+                        </th>
+
+                    </tr>
+
+                    @foreach (var item in typeCuisine)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.ActionLink(item.Nom, "Cuisine", "Restaurants", new { id = item.IdTypeCuisine }, null)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</article>
+

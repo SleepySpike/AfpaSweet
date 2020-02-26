@@ -1,0 +1,153 @@
+﻿@model IEnumerable<AfpaSweet.Models.ProduitPanier>
+
+@{
+    ViewBag.Title = "Panier";
+
+    //condition ternaire : if session... != null, alors c'est true, sinon (session... = null) c'est false
+    string isConnected = Session["utilisateur"] != null ? "true" : "false";
+}
+
+<h2>Panier</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdProduit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prix)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Photo)
+        </th>
+    </tr>
+
+    @if (Model != null && Model.Count() > 0)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdProduit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prix)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantite)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Photo)
+                </td>
+
+            </tr>
+        }
+    }
+
+
+</table>
+
+<button id="payer">Payer
+</button>
+
+<div class="modal fade" id="modalConnexion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <input type="text" class="form-control" id="matricule" placeholder="Votre matricule"/>
+                <input type="password" class="form-control" id="password" placehoder="Votre mot de passe"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                <button type="submit" id="validconnexion"class="btn btn-success">Connexion</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#payer").click(function () {
+
+                if (@isConnected)
+                {
+                    SaveCommandeSW();
+                }
+                else {
+                    //$("#modalConnexion").modal("show");
+                    document.location.href = '/Utilisateurs/Connexion/';
+
+                }
+
+
+            });
+
+            $('#validconnexion').click(function () {
+
+                loginSW();
+            })
+        });
+
+        function SaveCommandeSW()
+        {
+                var data = {"idSession" : '@Session.SessionID'};
+
+                $.ajax({
+                    url: '@Url.Action("SaveCommande", "SW")',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType : 'application/json; charset=utf-8',
+                    DataType: 'json', // On désire recevoir du json
+                    success: function (data) {
+                        document.location.href = '/Restaurants/Index/';
+                    },
+                    error: function () {
+                        alert('Error');
+                    }
+                });
+        }
+
+        function loginSW() {
+            var matricule = $('#matricule').val();
+            var password = $('#password').val();
+
+
+            if (matricule != "" && password != "") {
+                var data = { "idSession": '@Session.SessionID', 'matricule': matricule, 'password': password };
+
+                $.ajax({
+                    url: '@Url.Action("LoginUtilisateur", "SW")',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json; charset=utf-8',
+                    DataType: 'json', // On désire recevoir du json
+                    success: function (data) {
+                    $("#modalConnexion").modal("hide");
+                        
+                    },
+                    error: function () {
+                        alert('Error');
+                    }
+                });
+            }
+        }
+
+    </script>
+}
