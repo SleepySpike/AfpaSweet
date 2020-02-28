@@ -9,81 +9,64 @@
 <h2>Index</h2>
 
 <article class="card">
+
     <div class="card-body p-5">
 
-
-
-        <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
+        <ul class="nav backg nav-pills rounded nav-fill mb-3" role="tablist">
             <li class="nav-item">
                 <a class="nav-link " data-toggle="pill" href="#tabRestaurants">Restaurants</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " data-toggle="pill" href="#tabTypeCuisines">Types de cuisines</a>
+                <a class="nav-link " data-toggle="pill" href="#tabTypeCuisines">Types de cuisine</a>
             </li>
         </ul>
 
         <div class="tab-content">
             <div class="tab-pane fade show active" role="tabpanel" id="tabRestaurants">
-                <table class="table">
-                    <tr>
-                        <th>
-                            Nom
-                        </th>
-                        <th>
-                            Photo
-                        </th>
 
-                        <th>
-                            Description
-                        </th>
-
-                        <th></th>
-
-                    </tr>
-
+                <div class="row">
                     @foreach (var item in restaurants)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nom)
-                            </td>
-                            <td>
-                                @item.Photos.FirstOrDefault()
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Menu", "Details", new { id = item.IdRestaurant })
-                            </td>
-                        </tr>
+                        <div class="card col-sm-12 col-md-6 col-lg-4 my-3">
+                            <a class="text-decoration-none text-reset" href=@Url.Action("Menu", "Restaurants", new { id = item.IdRestaurant })>
+                                <img class="pt-3 card-img-top" src=@item.Photos.FirstOrDefault().Nom>
+
+                                <div class="card-body">
+                                    <h4 class="card-title">@item.Nom</h4>
+                                    <div class="card-subtitle mb-2 text-muted d-flex justify-content-between">
+                                        <div>@item.TypeCuisine.Nom</div>
+                                        <div>@item.Budget</div>
+                                    </div>
+                                    <p class="card-text text-justify">@item.Description</p>
+                                </div>
+                            </a>
+
+                        </div>
                     }
-
-                </table>
+                </div>
             </div>
-            <div class="tab-pane fade" role="tabpanel" id="tabTypeCuisines">
-                <table class="table">
-                    <tr>
-                        <th>
-                            Nom
-                        </th>
 
-                    </tr>
 
+            <div class="tab-pane fade show" role="tabpanel" id="tabTypeCuisines">
+                <div class="row">
                     @foreach (var item in typeCuisine)
                     {
-                        <tr>
+                        <div class="card col-sm-12 col-md-6 my-2">
+                            <a href=@Url.Action("Cuisine", "Restaurants", new { id = item.IdTypeCuisine }, null)>
+                                <img class="card-img" src=@item.Photo>
+                                <div class="card-img-overlay overlay-dark text-white d-flex justify-content-center align-items-end">
 
-                            <td>
-                                @Html.ActionLink(item.Nom, "Cuisine", "Restaurants", new { id = item.IdTypeCuisine }, null)
-                            </td>
-                        </tr>
+                                    <h4 style="color: azure">@item.Nom</h4>
+
+                                </div>
+                            </a>
+                        </div>
                     }
+                </div>
 
-                </table>
             </div>
         </div>
-
     </div>
+
 </article>
 

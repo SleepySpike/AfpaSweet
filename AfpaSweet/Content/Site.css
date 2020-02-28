@@ -10,12 +10,20 @@ nav ul li a:hover {
     border-bottom-color: white;
 }
 
+.overlay-grey {
+    background-color: rgba(0,0,0, 0.3);
+}
+
 .navbar .dropdown-menu .dropdown-item {
     color: #212529;
 }
 
+.navbar .navbar-toggler-icon {
+    color: white
+}
+
 body {
-    padding-top: 50px;
+    padding-top: 80px;
     padding-bottom: 20px;
 }
 /* Set padding to keep content from hitting the edges */

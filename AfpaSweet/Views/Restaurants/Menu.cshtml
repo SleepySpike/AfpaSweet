@@ -2,117 +2,132 @@
 
 @{
     ViewBag.Title = "Menu";
+    Restaurant detailRestaurant = ViewBag.DetailRestaurant;
     List<Produit> entrees = ViewBag.Entree;
     List<Produit> plats = ViewBag.Plat;
     List<Produit> desserts = ViewBag.Dessert;
 }
 
-<div class="d-flex flex-column">
+    <div class="card mb-3" style="max-width: 800px;">
+        <div class="row no-gutters">
+            <div class="col-md-4" style="max-width: 400px;">
+                <img class="card-img" src=@detailRestaurant.Photos.FirstOrDefault().Nom>
+                <div class="card-img-overlay overlay-grey text-white d-flex flex-column justify-content-center">
+                    <h4 class="card-title">@detailRestaurant.Nom</h4>
+                    <p class="card-subtitle">@detailRestaurant.Adresse</p>
+                    <p class="card-subtitle"><small >@detailRestaurant.Ville</small></p>
+                    <p class="card-subtitle"><small >@detailRestaurant.CodePostal</small></p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2">@detailRestaurant.TypeCuisine.Nom</h6>
+                    <h6 class="card-subtitle mb-2">@detailRestaurant.Budget</h6>
+                    <p class="card-text">@detailRestaurant.Description</p>
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="d-flex flex-column">
+        @detailRestaurant.Adresse
+        @detailRestaurant.Ville
+        @detailRestaurant.CodePostal
+        @detailRestaurant.Tel
+    </div>
+
+<div class="col-sm-12 col-md-6 offset-md-3"  style="width : 400px">
+        <div class="card">
+            <img class="card-img" src=@detailRestaurant.Photos.FirstOrDefault().Nom>
+            <div class="card-img-overlay text-white d-flex flex-column justify-content-center">
+                <h4 class="card-title">@detailRestaurant.Nom</h4>
+                <h6 class="card-subtitle mb-2">@detailRestaurant.TypeCuisine.Nom</h6>
+                <h6 class="card-subtitle mb-2">@detailRestaurant.Budget</h6>
+                <p class="card-text">@detailRestaurant.Description</p>
+            </div>
+        </div>
+</div>*@
+
+@*<div class="d-flex flex-column">
+    <div class="d-flex justify-content-between">
+        <h3>@detailRestaurant.Nom</h3>
+        <h3>@detailRestaurant.TypeCuisine.Nom</h3>
+    </div>
+    <hr class="my-2" />
+    @detailRestaurant.Budget
+    @detailRestaurant.Description
+</div>*@
+
+<div class="d-flex flex-column my-4">
+    <table class="table my-3">
+        <tr><td>    <h2>Entrées</h2></td><td></td><td></td><td></td></tr>
+
+        @foreach (var item in entrees)
+        {
+            <tr>
+                <td>
+                    @item.Nom
+                </td>
+                <td>
+                    @item.Prix
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    <button data-idproduit="@item.IdProduit" class="btn btn-danger btnAddPanier">Ajouter au panier</button>
+                    @*@Html.ActionLink("Ajouter", "AddPanier", new { idProduit = item.IdProduit, idRestaurant = item.IdRestaurant }) |*@
+                </td>
+            </tr>
+
+        }
+        <tr><td>    <h2>Plats</h2></td><td></td><td></td><td></td></tr>
+
+        @foreach (var item in plats)
+        {
+            <tr>
+                <td>
+                    @item.Nom
+                </td>
+                <td>
+                    @item.Prix
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    <button data-idproduit="@item.IdProduit" class="btn btn-danger btnAddPanier">Ajouter au panier</button>
+                    @*@Html.ActionLink("Ajouter", "AddPanier", new { idProduit = item.IdProduit, idRestaurant = item.IdRestaurant }) |*@
+                </td>
+            </tr>
+
+        }
+
+        <tr><td>    <h2>Desserts</h2></td><td></td><td></td><td></td></tr>
+
+        @foreach (var item in desserts)
+        {
+            <tr>
+                <td>
+                    @item.Nom
+                </td>
+                <td>
+                    @item.Prix
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    <button data-idproduit="@item.IdProduit" class="btn btn-danger btnAddPanier">Ajouter au panier</button>
+                    @*@Html.ActionLink("Ajouter", "AddPanier", new { idProduit = item.IdProduit, idRestaurant = item.IdRestaurant })*@
+                </td>
+            </tr>
+
+        }
+    </table>
 </div>
 
-    <div class="d-flex flex-column">
-        <h2>Menu</h2>
-        <table class="table">
-            @foreach (var item in entrees)
-            {
-                <tr>
-                    <td>
-                        @item.Nom
-                    </td>
-                    <td>
-                        @item.Prix
-                    </td>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        <button data-idproduit="@item.IdProduit" class="btn btn-danger btnAddPanier">Ajouter au panier</button>
-                        @*@Html.ActionLink("Ajouter", "AddPanier", new { idProduit = item.IdProduit, idRestaurant = item.IdRestaurant }) |*@
-                    </td>
-                </tr>
-
-            }
-        </table>
-
-        <table class="table">
-            @foreach (var item in plats)
-            {
-                <tr>
-                    <td>
-                        @item.Nom
-                    </td>
-                    <td>
-                        @item.Prix
-                    </td>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        <button data-idproduit="@item.IdProduit" class="btn btn-danger btnAddPanier">Ajouter au panier</button>
-                        @*@Html.ActionLink("Ajouter", "AddPanier", new { idProduit = item.IdProduit, idRestaurant = item.IdRestaurant }) |*@
-                    </td>
-                </tr>
-
-            }
-        </table>
-
-
-        <table class="table">
-            @foreach (var item in desserts)
-            {
-                <tr>
-                    <td>
-                        @item.Nom
-                    </td>
-                    <td>
-                        @item.Prix
-                    </td>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        <button data-idproduit="@item.IdProduit" class="btn btn-danger btnAddPanier">Ajouter au panier</button>
-                        @*@Html.ActionLink("Ajouter", "AddPanier", new { idProduit = item.IdProduit, idRestaurant = item.IdRestaurant })*@
-                    </td>
-                </tr>
-
-            }
-        </table>
-    </div>
-
-    <div class="d-flex flex-column">
-
-    </div>
-    @*<div class="d-flex flex-column">
-        <h2>Panier</h2>
-
-        <table class="table">
-
-            @if (Model != null && Model.Count() > 0)
-            {
-                foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nom)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Prix)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quantite)
-                        </td>
-
-
-                    </tr>
-                }
-            }
-
-
-        </table>
-
-    </div>*@
 
 
 <div class="modal fade" id="panier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -213,6 +213,26 @@
     <Content Include="Images\donut-512.png" />
     <Content Include="Images\panier-logo-png-6.png" />
     <Content Include="Images\panier.png" />
+    <Content Include="Images\Restaurants\adria-sbakery.jpg" />
+    <Content Include="Images\Restaurants\assaporare.jpg" />
+    <Content Include="Images\Restaurants\baramomos.jpg" />
+    <Content Include="Images\Restaurants\beyit-jedo.jpg" />
+    <Content Include="Images\Restaurants\dersou.jpg" />
+    <Content Include="Images\Restaurants\jodhpurpalace.jpg" />
+    <Content Include="Images\Restaurants\l-aubergeade.jpg" />
+    <Content Include="Images\Restaurants\labonnetradition.jpg" />
+    <Content Include="Images\Restaurants\le217.jpg" />
+    <Content Include="Images\Restaurants\letrainbleu.jpg" />
+    <Content Include="Images\Restaurants\payatha--.jpg" />
+    <Content Include="Images\Restaurants\virtus.jpg" />
+    <Content Include="Images\typeCuisine\asiat.jpg" />
+    <Content Include="Images\typeCuisine\boulang.jpg" />
+    <Content Include="Images\typeCuisine\brasserie.jpg" />
+    <Content Include="Images\typeCuisine\fastfood.jpg" />
+    <Content Include="Images\typeCuisine\fr.jpg" />
+    <Content Include="Images\typeCuisine\indien.jpg" />
+    <Content Include="Images\typeCuisine\libanais.jpg" />
+    <Content Include="Images\typeCuisine\pizza.jpg" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

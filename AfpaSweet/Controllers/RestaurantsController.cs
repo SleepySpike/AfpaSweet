@@ -29,9 +29,9 @@ namespace AfpaSweet.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ViewBag.DetailRestaurant = db.Restaurants.Find(id);
-            ViewBag.Entree = db.Produits.Where(p => p.IdCategorie == 1).ToList();
-            ViewBag.Plat = db.Produits.Where(p => p.IdCategorie == 2).ToList();
-            ViewBag.Dessert = db.Produits.Where(p => p.IdCategorie == 3).ToList();
+            ViewBag.Entree = db.Produits.Where(p => p.IdCategorie == 1 && p.IdRestaurant == id).ToList();
+            ViewBag.Plat = db.Produits.Where(p => p.IdCategorie == 2 && p.IdRestaurant == id).ToList();
+            ViewBag.Dessert = db.Produits.Where(p => p.IdCategorie == 3 && p.IdRestaurant == id).ToList();
 
             if (ViewBag.DetailRestaurant == null)
             {
