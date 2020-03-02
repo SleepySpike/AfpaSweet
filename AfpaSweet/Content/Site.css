@@ -10,8 +10,14 @@ nav ul li a:hover {
     border-bottom-color: white;
 }
 
+/* filtre grisé pour image de restaurants sur View Menu*/
 .overlay-grey {
     background-color: rgba(0,0,0, 0.3);
+}
+
+.border {
+    border-color : #d9534f;
+    border-radius : 2px;
 }
 
 .navbar .dropdown-menu .dropdown-item {
@@ -25,11 +31,13 @@ nav ul li a:hover {
 body {
     padding-top: 80px;
     padding-bottom: 20px;
+    background-color: #f5f5f5;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background-color: #f5f5f5;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 

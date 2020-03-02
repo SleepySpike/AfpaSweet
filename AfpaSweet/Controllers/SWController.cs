@@ -61,8 +61,48 @@ namespace AfpaSweet.Controllers
                 HttpContext.Application[idSession] = panier;
             }
 
-            return Json(panierQte +1, JsonRequestBehavior.AllowGet);
+            return Json(panierQte + 1, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult SubQte(int idProduit, string idSession)
+        {
+            SessionUtilisateur sessionUtilisateur = db.SessionUtilisateurs.Find(Session.SessionID);
+
+            List<ProduitPanier> panier = null;
+
+            panier = (List<ProduitPanier>)HttpContext.Application[idSession];
+            ProduitPanier produitPanier = panier.Where(p => p.IdProduit == idProduit).First();
+
+
+            if (produitPanier.Quantite > 1)
+            {
+                produitPanier.Quantite -= 1;
+                return Json(produitPanier.Quantite, JsonRequestBehavior.AllowGet);
+            }
+
+            else
+            {
+                panier.Remove(produitPanier);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+
+        }        
+        
+        public JsonResult AddQte(int idProduit, string idSession)
+        {
+            SessionUtilisateur sessionUtilisateur = db.SessionUtilisateurs.Find(Session.SessionID);
+
+            List<ProduitPanier> panier = null;
+
+            panier = (List<ProduitPanier>)HttpContext.Application[idSession];
+            ProduitPanier produitPanier = panier.Where(p => p.IdProduit == idProduit).First();
+
+
+                produitPanier.Quantite += 1;
+
+                return Json(produitPanier.Quantite, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetPanier(string idSession)
         {
             List<ProduitPanier> panier = null;

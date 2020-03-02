@@ -10,9 +10,10 @@
 
 <article class="card">
 
+
     <div class="card-body p-5">
 
-        <ul class="nav backg nav-pills rounded nav-fill mb-3" role="tablist">
+        <ul class="nav nav-pills rounded nav-fill mb-3" role="tablist">
             <li class="nav-item">
                 <a class="nav-link " data-toggle="pill" href="#tabRestaurants">Restaurants</a>
             </li>
@@ -21,13 +22,23 @@
             </li>
         </ul>
 
+        <div class="input-group mb-3 col-12">
+            <input type="text" id="searchBar" class="form-control col-12" placeholder="Une envie particulière ?">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
+
+
         <div class="tab-content">
             <div class="tab-pane fade show active" role="tabpanel" id="tabRestaurants">
 
                 <div class="row">
                     @foreach (var item in restaurants)
                     {
-                        <div class="card col-sm-12 col-md-6 col-lg-4 my-3">
+                        <div class="searchCard card col-sm-12 col-md-6 col-lg-4 my-3">
                             <a class="text-decoration-none text-reset" href=@Url.Action("Menu", "Restaurants", new { id = item.IdRestaurant })>
                                 <img class="pt-3 card-img-top" src=@item.Photos.FirstOrDefault().Nom>
 
@@ -51,7 +62,7 @@
                 <div class="row">
                     @foreach (var item in typeCuisine)
                     {
-                        <div class="card col-sm-12 col-md-6 my-2">
+                        <div class="searchCard card col-sm-12 col-md-6 my-2">
                             <a href=@Url.Action("Cuisine", "Restaurants", new { id = item.IdTypeCuisine }, null)>
                                 <img class="card-img" src=@item.Photo>
                                 <div class="card-img-overlay overlay-dark text-white d-flex justify-content-center align-items-end">
@@ -70,3 +81,15 @@
 
 </article>
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#searchBar").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("div.searchCard").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+}

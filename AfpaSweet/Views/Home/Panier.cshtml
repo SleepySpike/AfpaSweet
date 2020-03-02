@@ -11,51 +11,30 @@
 
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdProduit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prix)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantite)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Photo)
-        </th>
-    </tr>
+
 
     @if (Model != null && Model.Count() > 0)
     {
         foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdProduit)
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Nom)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Prix)
+                    @Html.DisplayFor(modelItem => item.Prix) €
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    <button data-idproduit="@item.IdProduit" class="btn btn-danger btnSubQte"><i class="fa fa-minus"></i></button>
                 </td>
-                <td>
+                <td class="@item.IdProduit">
                     @Html.DisplayFor(modelItem => item.Quantite)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Photo)
-                </td>
+                    <button data-iidproduit="@item.IdProduit" class="btn btn-danger btnAddQte"><i class="fa fa-plus"></i></button>
 
+                </td>
             </tr>
         }
     }
@@ -63,19 +42,20 @@
 
 </table>
 
-<button id="payer">Payer
+<button id="payer">
+    Payer
 </button>
 
 <div class="modal fade" id="modalConnexion" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <input type="text" class="form-control" id="matricule" placeholder="Votre matricule"/>
-                <input type="password" class="form-control" id="password" placehoder="Votre mot de passe"/>
+                <input type="text" class="form-control" id="matricule" placeholder="Votre matricule" />
+                <input type="password" class="form-control" id="password" placehoder="Votre mot de passe" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-                <button type="submit" id="validconnexion"class="btn btn-success">Connexion</button>
+                <button type="submit" id="validconnexion" class="btn btn-success">Connexion</button>
             </div>
         </div>
     </div>
@@ -103,6 +83,59 @@
 
                 loginSW();
             })
+
+            $(".btnSubQte").click(function () {
+                var idProduit = $(this).data('idproduit')
+                var data = {"idProduit" : idProduit, "idSession" : '@Session.SessionID'};
+                var tr = $(this).closest("tr");
+
+                $.ajax({
+                    url: '@Url.Action("SubQte", "SW")',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType : 'application/json; charset=utf-8',
+                    DataType: 'json', // On désire recevoir du json
+                    success: function (data) {
+
+                        $('.' + idProduit).html(data);
+                        $('#panierCount').html(data);
+
+
+                        if (data == 0) {                    
+                            tr.remove();
+                        }
+
+                    },
+                    error: function () {
+                        alert('Error');
+                    }
+                });
+            });
+
+            $(".btnAddQte").click(function () {
+
+                var idProduit = $(this).data('iidproduit')
+                var data = {"idProduit" : idProduit, "idSession" : '@Session.SessionID'};
+
+                $.ajax({
+                    url: '@Url.Action("AddQte", "SW")',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType : 'application/json; charset=utf-8',
+                    DataType: 'json', // On désire recevoir du json
+                    success: function (data) {
+
+                        $('.' + idProduit).html(data);
+                        $('#panierCount').html(data);
+
+                    },
+
+                    error: function () {
+                        alert('Error');
+                    }
+                });
+             });
+
         });
 
         function SaveCommandeSW()
@@ -140,7 +173,7 @@
                     DataType: 'json', // On désire recevoir du json
                     success: function (data) {
                     $("#modalConnexion").modal("hide");
-                        
+
                     },
                     error: function () {
                         alert('Error');
