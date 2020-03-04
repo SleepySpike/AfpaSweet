@@ -1,6 +1,6 @@
 ﻿@using AfpaSweet.Models
 @{
-    List<ProduitPanier> panier = (List<ProduitPanier>)HttpContext.Current.Application[Session.SessionID];
+    PanierModel panier = (PanierModel)HttpContext.Current.Application[Session.SessionID];
     decimal panierQte = 0;
 
     if(panier != null)

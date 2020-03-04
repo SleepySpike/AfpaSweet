@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AfpaSweet.Models.ProduitPanier>
+﻿@model AfpaSweet.Models.PanierModel
 
 @{
     ViewBag.Title = "Panier";
@@ -15,7 +15,7 @@
 
     @if (Model != null && Model.Count() > 0)
     {
-        foreach (var item in Model)
+        foreach (AfpaSweet.Models.ItemPanier item in Model)
         {
             <tr>
 
@@ -26,13 +26,13 @@
                     @Html.DisplayFor(modelItem => item.Prix) €
                 </td>
                 <td>
-                    <button data-idproduit="@item.IdProduit" class="btn btn-danger btnSubQte"><i class="fa fa-minus"></i></button>
+                    <button data-idproduit="@item.GetIdProduit()" class="btn btn-danger btnSubQte"><i class="fa fa-minus"></i></button>
                 </td>
-                <td class="@item.IdProduit">
+                <td class="@item.GetIdProduit()">
                     @Html.DisplayFor(modelItem => item.Quantite)
                 </td>
                 <td>
-                    <button data-iidproduit="@item.IdProduit" class="btn btn-danger btnAddQte"><i class="fa fa-plus"></i></button>
+                    <button data-iidproduit="@item.GetIdProduit()" class="btn btn-danger btnAddQte"><i class="fa fa-plus"></i></button>
 
                 </td>
             </tr>

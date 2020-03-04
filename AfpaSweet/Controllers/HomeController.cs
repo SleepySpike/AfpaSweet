@@ -29,10 +29,10 @@ namespace AfpaSweet.Controllers
         }
         public ActionResult Panier()
         {
-            List<ProduitPanier> panier = (List<ProduitPanier>)HttpContext.Application[Session.SessionID];
+            PanierModel panier = (PanierModel)HttpContext.Application[Session.SessionID];
 
             return View(panier);
-        }
+         }
 
         public ActionResult PanierAjax()
         {
